@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Iowan Old Style", Palatino, ui-serif, serif;
+
+  --color-bg: #10100e;
+  --color-surface: #191917;
+  --color-fg: #f3f0e8;
+  --color-muted: #a39e94;
+  --color-line: #2e2d2a;
+  --color-mark: #c6a15a;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-fg);
+    color: var(--color-bg);
+  }
+}
+
+@keyframes dross-sweep {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100cqi - 1px));
+  }
+}
+
+.sweep-line {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+.sweep-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--color-fg);
+  pointer-events: none;
+  animation: dross-sweep 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep-line::after {
+    animation: none;
+    opacity: 0;
+  }
+}
